@@ -11,8 +11,8 @@
       "$mainMod" = "SUPER";
 
       env = [
-        "XCURSOR_THEME,Bibata-Ice"
-        "XCURSOR_SIZE,24"
+        "XCURSOR_THEMEBibata-Ice"
+          "XCURSOR_SIZE,24"
       ];
 
       monitor = [

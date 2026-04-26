@@ -10,11 +10,6 @@
       "$menu" = "rofi -show drun";
       "$mainMod" = "SUPER";
 
-      env = [
-        "XCURSOR_THEME,Bibata-Ice"
-        "XCURSOR_SIZE,24"
-      ];
-
       monitor = [
         "eDP-2,1920x1080@144,0x0,1.25"
       ];
@@ -207,7 +202,6 @@
         ",contain:/home/norker/Pictures/wallpapers/NixOs.png"
       ];
     };
-  };
    # change cursor
    home.pointerCursor = {
     name = "Bibata-Ice";
@@ -216,4 +210,9 @@
     gtk.enable = true;
     x11.enable = true;
   };
+
+  wayland.windowManager.hyprland.settings.env = [
+    "XCURSOR_THEME,Bibata-Ice"
+    "XCURSOR_SIZE,24"
+  ]; };
 }

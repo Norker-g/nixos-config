@@ -9,6 +9,7 @@
     gcc
     unzip
     fastfetch
+
     fd
     ripgrep
     zoxide
@@ -25,15 +26,14 @@
     hyprpaper
     wl-clipboard
     kitty
-    rofi
+    tofi
     brave
 
     telegram-desktop
     signal-desktop
     steam 
-    steam-run
-    _1password-cli
-    _1password-gui
+    1password-cli
+    1password-gui
 
     brightnessctl
 

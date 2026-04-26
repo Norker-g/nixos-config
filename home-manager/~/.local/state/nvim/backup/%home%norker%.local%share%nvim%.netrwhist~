@@ -1,8 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =4
-let g:netrw_dirhist_4='/home/norker/nixos-config/home-manager'
-let g:netrw_dirhist_3='/home/norker/nixos-config/nixos'
-let g:netrw_dirhist_2='/home/norker/nixos-config'
+let g:netrw_dirhistcnt =1
 let g:netrw_dirhist_1='/home/norker/nixos-config/home-manager'
 let g:netrw_dirhist_0='/home/norker/nixos-config'
 let g:netrw_dirhist_9='/home/norker/nixos-config/nixos'
@@ -10,3 +7,6 @@ let g:netrw_dirhist_8='/home/norker/nixos-config/home-manager'
 let g:netrw_dirhist_7='/home/norker/nixos-config/home-manager/nixvim'
 let g:netrw_dirhist_6='/home/norker/nixos-config'
 let g:netrw_dirhist_5='/home/norker/nixos-config/~'
+let g:netrw_dirhist_4='/home/norker/nixos-config/~/.local'
+let g:netrw_dirhist_3='/home/norker/nixos-config/~/.local/state'
+let g:netrw_dirhist_2='/home/norker/nixos-config/~/.local/state/nvim'

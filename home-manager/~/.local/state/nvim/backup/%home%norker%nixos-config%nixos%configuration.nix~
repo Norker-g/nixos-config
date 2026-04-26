@@ -18,7 +18,7 @@
       ./packages.nix
       ./desktop.nix
       ./maintenance.nix
-      ./apps.nix
+
     ];
   environment.variables = {
     VISUAL = "nvim"; 
