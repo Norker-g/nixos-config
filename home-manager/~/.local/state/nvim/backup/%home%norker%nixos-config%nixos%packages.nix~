@@ -1,0 +1,41 @@
+{ config, pkgs, ... }:
+
+{
+  environment.systemPackages = with pkgs; [
+    vim
+    neovim
+
+    git
+    gcc
+    unzip
+    fastfetch
+
+    fd
+    ripgrep
+    zoxide
+    nix-search-cli
+
+    zsh
+    zsh-powerlevel10k
+    oh-my-zsh
+    nerd-fonts.hack
+
+    ly
+    hyprland
+    waybar
+    hyprpaper
+    wl-clipboard
+    kitty
+    tofi
+    brave
+
+    telegram-desktop
+    signal-desktop
+    steam 
+
+    brightnessctl
+
+    bluez
+    home-manager
+  ];
+}

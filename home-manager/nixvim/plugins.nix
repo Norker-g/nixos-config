@@ -1,0 +1,52 @@
+{ config, pkgs, ... }:
+
+{
+  programs.nixvim = {
+    plugins = {
+      web-devicons = {
+          enable = true;
+      };
+      # Syntax highlighting
+      treesitter = {
+        enable = true;
+      };
+
+      # Automatic tab size / indentation recognition
+      guess-indent = {
+        enable = true;
+      };
+
+      # Auto-complete brackets, parentheses, quotes, etc.
+      nvim-autopairs = {
+        enable = true;
+      };
+
+      # Telescope fuzzy finder
+      telescope = {
+        enable = true;
+
+        keymaps = {
+          "<leader>ff" = {
+            action = "find_files";
+            options.desc = "Find files";
+          };
+
+          "<leader>fg" = {
+            action = "live_grep";
+            options.desc = "Live grep";
+          };
+
+          "<leader>fb" = {
+            action = "buffers";
+            options.desc = "Find buffers";
+          };
+
+          "<leader>fh" = {
+            action = "help_tags";
+            options.desc = "Help tags";
+          };
+        };
+      };
+    };
+  };
+}
