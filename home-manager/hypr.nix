@@ -11,7 +11,7 @@
       "$mainMod" = "SUPER";
 
       env = [
-        "XCURSOR_THEME,Bibata-Ice"
+        "XCURSOR_THEME,Nordzy-cursors"
         "XCURSOR_SIZE,24"
       ];
 
@@ -22,6 +22,7 @@
       exec-once = [
         "waybar"
         "hyprpaper"
+        "hyprctl setcursor Nordzy-black-cursors 24"
       ];
 
       general = {
@@ -209,9 +210,9 @@
     };
   };
    # change cursor
-   home.pointerCursor = {
-    name = "Bibata-Ice";
-    package = pkgs.bibata-cursors;
+  home.pointerCursor = {
+   name = "Nordzy-cursors";
+    package = pkgs.nordzy-cursor-theme;
     size = 24;
     gtk.enable = true;
     x11.enable = true;

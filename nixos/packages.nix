@@ -6,6 +6,7 @@
     neovim
 
     git
+    lazygit
     gcc
     unzip
     fastfetch
@@ -22,6 +23,7 @@
     ly
     hyprland
     waybar
+    quickshell
     hyprpaper
     wl-clipboard
     kitty
