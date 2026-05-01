@@ -14,6 +14,10 @@
 
         # Bash
         bashls.enable = true;
+
+        clangd.enable = true;
+
+        pyright.enable=true;
       };
 
       keymaps = {

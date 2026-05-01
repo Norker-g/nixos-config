@@ -8,12 +8,19 @@
     git
     lazygit
     gcc
+    cmake
+    gnumake
     unzip
+
     fastfetch
     fd
     ripgrep
     zoxide
     nix-search-cli
+    htop
+    btop
+
+    keymapp
 
     zsh
     zsh-powerlevel10k

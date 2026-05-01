@@ -6,13 +6,21 @@
     neovim
 
     git
+    lazygit
     gcc
+    cmake
+    gnumake
     unzip
+
     fastfetch
     fd
     ripgrep
     zoxide
     nix-search-cli
+    htop
+    btop
+
+    wally-cli
 
     zsh
     zsh-powerlevel10k
@@ -22,6 +30,7 @@
     ly
     hyprland
     waybar
+    quickshell
     hyprpaper
     wl-clipboard
     kitty

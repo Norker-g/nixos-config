@@ -21,7 +21,8 @@
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "de";
+    layout = "us, ru";
+    options = "grp: alt_win_toggle";
     variant = "";
   };
 

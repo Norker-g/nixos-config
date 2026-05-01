@@ -9,6 +9,7 @@
       "$fileManager" = "thunar";
       "$menu" = "rofi -show drun";
       "$mainMod" = "SUPER";
+    
 
       env = [
         "XCURSOR_THEME,Nordzy-cursors"
@@ -57,34 +58,28 @@
       };
 
       animations = {
-        enabled = true;
 
         bezier = [
-          "easeOutQuint, 0.23, 1, 0.32, 1"
-          "easeInOutCubic, 0.65, 0.05, 0.36, 1"
-          "linear, 0, 0, 1, 1"
-          "almostLinear, 0.5, 0.5, 0.75, 1"
-          "quick, 0.15, 0, 0.1, 1"
+          "easeOutExpo, 0.16, 1, 0.3, 1"
+            "softOvershot, 0.13, 0.99, 0.29, 1.08"
+            "quickFade, 0.25, 0.1, 0.25, 1"
         ];
 
         animation = [
-          "global, 1, 10, default"
-          "border, 1, 5.39, easeOutQuint"
-          "windows, 1, 4.79, easeOutQuint"
-          "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
-          "windowsOut, 1, 1.49, linear, popin 87%"
-          "fadeIn, 1, 1.73, almostLinear"
-          "fadeOut, 1, 1.46, almostLinear"
-          "fade, 1, 3.03, quick"
-          "layers, 1, 3.81, easeOutQuint"
-          "layersIn, 1, 4, easeOutQuint, fade"
-          "layersOut, 1, 1.5, linear, fade"
-          "fadeLayersIn, 1, 1.79, almostLinear"
-          "fadeLayersOut, 1, 1.39, almostLinear"
-          "workspaces, 1, 1.94, almostLinear, fade"
-          "workspacesIn, 1, 1.21, almostLinear, fade"
-          "workspacesOut, 1, 1.94, almostLinear, fade"
-          "zoomFactor, 1, 7, quick"
+          "windowsIn, 1, 4, softOvershot, popin 82%"
+            "windowsOut, 1, 3, easeOutExpo, popin 88%"
+            "windowsMove, 1, 3, easeOutExpo"
+
+            "workspaces, 1, 3, easeOutExpo, slide"
+
+            "fadeIn, 1, 3, quickFade"
+            "fadeOut, 1, 2, quickFade"
+            "fadeSwitch, 1, 2, quickFade"
+            "fadeShadow, 1, 3, quickFade"
+            "fadeDim, 1, 3, quickFade"
+
+            "border, 1, 3, easeOutExpo"
+            "borderangle, 1, 8, easeOutExpo"
         ];
       };
 
@@ -102,7 +97,9 @@
       xwayland = {
         force_zero_scaling = true;
       };
-
+      input = {
+        "kb_layout" = "us,de,ru";
+      };
       bind = [
         "SUPER SHIFT, Q, killactive"
         "$mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
@@ -123,7 +120,7 @@
         "$mainMod, N, exec, kitty -e nvim"
         "$mainMod, X, exec, hyprlock"
         "$mainMod, R, submap, resize"
-        "$mainMod, SPACE, exec, hyprctl switchxkblayout current next"
+        "$mainMod, ALT, exec, hyprctl switchxkblayout current next"
         "$mainMod, F, fullscreen"
 
         "$mainMod, H, movefocus, l"
@@ -211,10 +208,24 @@
   };
    # change cursor
   home.pointerCursor = {
-   name = "Nordzy-cursors";
+    name = "Nordzy-cursors";
     package = pkgs.nordzy-cursor-theme;
     size = 24;
     gtk.enable = true;
     x11.enable = true;
+  };
+
+  gtk = {
+    enable = true;
+
+    theme = {
+      package = pkgs.nordic;
+      name = "Nordic";
+    };
+
+    iconTheme = {
+      package = pkgs.nordzy-icon-theme;
+      name = "Nordzy";
+    };
   };
 }
