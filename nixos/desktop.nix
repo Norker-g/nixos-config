@@ -11,7 +11,7 @@
     enable = true;
     settings = {
       animation = "matrix";
-      clock = "%H%M";
+      clock = "%c";
     };
   };
 

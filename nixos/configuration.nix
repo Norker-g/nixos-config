@@ -26,6 +26,8 @@
     SUDO_EDITOR = "nvim -u ~/.config/nvim/init.lua";
   };
    
+  hardware.keyboard.zsa.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

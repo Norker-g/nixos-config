@@ -5,13 +5,15 @@
     vim
     neovim
 
-    git
-    lazygit
     gcc
+    python314
     cmake
     gnumake
     unzip
+    rustup
 
+    git
+    lazygit
     fastfetch
     fd
     ripgrep
@@ -30,6 +32,7 @@
     ly
     hyprland
     waybar
+    hyprshot
     quickshell
     hyprpaper
     wl-clipboard
