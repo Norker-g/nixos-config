@@ -1,7 +1,8 @@
 {
-nix.gc = {
-  automatic = true;
-  dates = "daily";
-  options = "--older-7-days";
+
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
   };
 }

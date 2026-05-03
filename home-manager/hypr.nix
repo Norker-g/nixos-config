@@ -6,7 +6,6 @@
 
     settings = {
       "$terminal" = "kitty";
-      "$fileManager" = "thunar";
       "$menu" = "rofi -show drun";
       "$mainMod" = "SUPER";
     
@@ -17,7 +16,7 @@
       ];
 
       monitor = [
-        "eDP-2,1920x1080@144,0x0,1"
+        "eDP-1,1920x1080@144,0x0,1.25"
       ];
 
       exec-once = [
@@ -99,12 +98,13 @@
       };
       input = {
         "kb_layout" = "us,de,ru";
+        "kb_options" = "grp:alt_win_toggle";
       };
       bind = [
         "SUPER SHIFT, Q, killactive"
         "$mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
-        ", PRINT, exec, XDG_CURRENT_DESKTOP=sway flameshot gui --path ~/Pictures/screenshots"
-        "SHIFT, PRINT, exec, XDG_CURRENT_DESKTOP=sway flameshot gui -c"
+        # ", PRINT, exec, XDG_CURRENT_DESKTOP=sway flameshot gui --path ~/Pictures/screenshots"
+        # "SHIFT, PRINT, exec, XDG_CURRENT_DESKTOP=sway flameshot gui -c"
 
         "$mainMod, V, togglefloating"
         "$mainMod, D, exec, $menu"
@@ -120,7 +120,6 @@
         "$mainMod, N, exec, kitty -e nvim"
         "$mainMod, X, exec, hyprlock"
         "$mainMod, R, submap, resize"
-        "$mainMod, ALT, exec, hyprctl switchxkblayout current next"
         "$mainMod, F, fullscreen"
 
         "$mainMod, H, movefocus, l"

@@ -28,4 +28,5 @@
 
   # Configure console keymap
   console.keyMap = "en";
+
 }

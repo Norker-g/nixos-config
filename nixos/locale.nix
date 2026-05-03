@@ -22,11 +22,11 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us, ru";
-    options = "grp: alt_win_toggle";
+    options = "grp:alt_win_toggle";
     variant = "";
   };
 
   # Configure console keymap
-  console.keyMap = "en";
+  console.keyMap = "us";
 
 }

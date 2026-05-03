@@ -8,7 +8,7 @@
     shellAliases = {
       l = "ls -l";
       la = "ls -la"; 
-      rebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos && home-manager switch -b old --flake /home/norker/nixos-config#norker";
+      rebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos --show-trace && home-manager switch -b old --flake /home/norker/nixos-config#norker";
       nixconfig = "nvim /home/norker/nixos-config/nixos/configuration.nix";
       homeconfig = "nvim /home/norker/nixos-config/home-manager/home.nix";
       install = "nvim /home/norker/nixos-config/nixos/packages.nix";
