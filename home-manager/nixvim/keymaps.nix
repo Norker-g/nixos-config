@@ -5,9 +5,24 @@
     keymaps = [
       {
         mode = "n";
+        key = "<leader>w";
+        action = "<cmd>w<CR>";
+        options.desc = "Write file";
+      }
+
+      {
+        mode = "n";
+        key = "<leader>q";
+        action = "<cmd>q<CR>";
+        options.desc = "Quit file";
+      }
+
+      {
+        mode = "n";
         key = "<leader>/";
         action = "gcc";
         options.desc = "Toggle comment line";
+        options.remap = true;
       }
 
       {
@@ -15,6 +30,7 @@
         key = "<leader>/";
         action = "gc";
         options.desc = "Toggle comment selection";
+        options.remap = true;
       }
       {
         mode = "n";

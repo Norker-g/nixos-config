@@ -1,7 +1,0 @@
-{
-nix.gc = {
-  automatic = true;
-  dates = "daily";
-  options = "--older-7-days";
-  };
-}

@@ -17,7 +17,32 @@
 
         clangd.enable = true;
 
-        pyright.enable=true;
+        pyright.enable = true;
+
+        ts_ls.enable = true;
+        ts_ls.filetypes = [
+          "javascript"
+            "javascriptreact"
+            "typescript"
+            "typescriptreact"
+        ];
+
+        # Rust
+        rust_analyzer = {
+          enable = true;
+
+          installCargo = true;
+          installRustc = true;
+          installRustfmt = true;
+
+          settings = {
+            "rust-analyzer" = {
+              check = {
+                command = "clippy";
+              };
+            };
+          };
+        };
       };
 
       keymaps = {

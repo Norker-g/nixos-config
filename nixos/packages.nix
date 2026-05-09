@@ -11,6 +11,7 @@
     gnumake
     unzip
     rustup
+    javascript-typescript-langserver
 
     git
     lazygit
@@ -21,6 +22,7 @@
     nix-search-cli
     htop
     btop
+    trash-cli
 
     keymapp
 

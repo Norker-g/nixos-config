@@ -6,8 +6,10 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
+      n = "nvim";
       l = "ls -l";
       la = "ls -la"; 
+      rm = "trash-put";
       rebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos --show-trace && home-manager switch -b old --flake /home/norker/nixos-config#norker";
       nixconfig = "nvim /home/norker/nixos-config/nixos/configuration.nix";
       homeconfig = "nvim /home/norker/nixos-config/home-manager/home.nix";
