@@ -6,6 +6,7 @@
     neovim
 
     gcc
+    gdb
     python314
     cmake
     gnumake
@@ -14,6 +15,7 @@
     javascript-typescript-langserver
 
     git
+    gh
     lazygit
     fastfetch
     fd
@@ -41,17 +43,20 @@
     kitty
     rofi
     brave
+    gammastep
 
     telegram-desktop
     signal-desktop
-    steam 
+    steam
     steam-run
     _1password-cli
     _1password-gui
 
     brightnessctl
+    supergfxctl
 
     bluez
     home-manager
+
   ];
 }

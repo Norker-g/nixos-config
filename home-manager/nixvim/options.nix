@@ -2,6 +2,10 @@
 
 {
   programs.nixvim = {
+    globals = {
+      netrw_liststyle = 1;
+      netrw_sizestyle = "H";
+    };
     opts = {
       # Line numbers
       number = true;
@@ -35,24 +39,24 @@
 
       # Swap/recovery files
       swapfile = true;
-      directory = [ "~/.local/state/nvim/swap//" ];
+      directory = [ "${config.home.homeDirectory}/.local/state/nvim/swap//" ];
 
       # Persistent undo: undo/redo after closing Neovim
       undofile = true;
-      undodir = "~/.local/state/nvim/undo//";
+      undodir = "${config.home.homeDirectory}/.local/state/nvim/undo//";
 
       # Backup files
       backup = true;
-      backupdir = [ "~/.local/state/nvim/backup//" ];
+      backupdir = [ "${config.home.homeDirectory}/.local/state/nvim/backup//" ];
 
       # Better LSP update behavior
       updatetime = 250;
     };
 
     extraConfigLuaPre = ''
-      vim.fn.mkdir(vim.fn.expand("~/.local/state/nvim/swap"), "p")
-      vim.fn.mkdir(vim.fn.expand("~/.local/state/nvim/undo"), "p")
-      vim.fn.mkdir(vim.fn.expand("~/.local/state/nvim/backup"), "p")
+      vim.fn.mkdir(vim.fn.expand("${config.home.homeDirectory}/.local/state/nvim/swap"), "p")
+      vim.fn.mkdir(vim.fn.expand("${config.home.homeDirectory}/.local/state/nvim/undo"), "p")
+      vim.fn.mkdir(vim.fn.expand("${config.home.homeDirectory}/.local/state/nvim/backup"), "p")
     '';
 
     extraConfigLua = ''

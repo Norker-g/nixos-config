@@ -8,7 +8,6 @@
       "$terminal" = "kitty";
       "$menu" = "rofi -show drun";
       "$mainMod" = "SUPER";
-    
 
       env = [
         "XCURSOR_THEME,Nordzy-cursors"
@@ -61,25 +60,25 @@
 
         bezier = [
           "easeOutExpo, 0.16, 1, 0.3, 1"
-            "softOvershot, 0.13, 0.99, 0.29, 1.08"
-            "quickFade, 0.25, 0.1, 0.25, 1"
+          "softOvershot, 0.13, 0.99, 0.29, 1.08"
+          "quickFade, 0.25, 0.1, 0.25, 1"
         ];
 
         animation = [
           "windowsIn, 1, 4, softOvershot, popin 82%"
-            "windowsOut, 1, 3, easeOutExpo, popin 88%"
-            "windowsMove, 1, 3, easeOutExpo"
+          "windowsOut, 1, 3, easeOutExpo, popin 88%"
+          "windowsMove, 1, 3, easeOutExpo"
 
-            "workspaces, 1, 3, easeOutExpo, slide"
+          "workspaces, 1, 3, easeOutExpo, slide"
 
-            "fadeIn, 1, 3, quickFade"
-            "fadeOut, 1, 2, quickFade"
-            "fadeSwitch, 1, 2, quickFade"
-            "fadeShadow, 1, 3, quickFade"
-            "fadeDim, 1, 3, quickFade"
+          "fadeIn, 1, 3, quickFade"
+          "fadeOut, 1, 2, quickFade"
+          "fadeSwitch, 1, 2, quickFade"
+          "fadeShadow, 1, 3, quickFade"
+          "fadeDim, 1, 3, quickFade"
 
-            "border, 1, 3, easeOutExpo"
-            "borderangle, 1, 8, easeOutExpo"
+          "border, 1, 3, easeOutExpo"
+          "borderangle, 1, 8, easeOutExpo"
         ];
       };
 
@@ -204,28 +203,6 @@
       wallpaper = [
         ",contain:/home/norker/Pictures/wallpapers/NixOs.png"
       ];
-    };
-  };
-   # change cursor
-  home.pointerCursor = {
-    name = "Nordzy-cursors";
-    package = pkgs.nordzy-cursor-theme;
-    size = 24;
-    gtk.enable = true;
-    x11.enable = true;
-  };
-
-  gtk = {
-    enable = true;
-
-    theme = {
-      package = pkgs.nordic;
-      name = "Nordic";
-    };
-
-    iconTheme = {
-      package = pkgs.nordzy-icon-theme;
-      name = "Nordzy";
     };
   };
 }

@@ -22,9 +22,9 @@
         ts_ls.enable = true;
         ts_ls.filetypes = [
           "javascript"
-            "javascriptreact"
-            "typescript"
-            "typescriptreact"
+          "javascriptreact"
+          "typescript"
+          "typescriptreact"
         ];
 
         # Rust

@@ -1,4 +1,5 @@
-{config, pkgs, ...}: {
+{ config, pkgs, ... }:
+{
 
   home = {
     username = "norker";
@@ -10,6 +11,8 @@
     ./zsh.nix
     ./kitty.nix
     ./hypr.nix
+    ./gammastep.nix
     ./nixvim
+    ./themes.nix
   ];
 }
