@@ -1,4 +1,5 @@
-{config, pkgs, ...}: {
+{ config, pkgs, ... }:
+{
   programs.kitty = {
     enable = true;
 
@@ -8,8 +9,8 @@
       size = 12;
     };
     settings = {
-    dynamic_background_opacity = true;
-    background_opacity = 0.85;
+      dynamic_background_opacity = true;
+      background_opacity = 0.85;
     };
     themeFile = "Nord";
   };

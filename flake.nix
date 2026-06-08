@@ -2,20 +2,27 @@
   description = "Norker's NixOS config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixvim,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -29,14 +36,13 @@
         ];
       };
 
-      homeConfigurations."norker" =
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+      homeConfigurations."norker" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-          modules = [
-            nixvim.homeModules.nixvim
-            ./home-manager/home.nix
-          ];
-        };
+        modules = [
+          nixvim.homeModules.nixvim
+          ./home-manager/home.nix
+        ];
+      };
     };
 }

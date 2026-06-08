@@ -20,20 +20,20 @@
     "thunderbolt"
     "usb_storage"
     "uas"
+    "usbhid"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "usbcore.autosuspend=1" ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/444459d3-7ed6-46c5-862f-0456b9082fe0";
+    device = "/dev/disk/by-uuid/6771a4c0-66d1-4149-bb7a-ffece45ccc94";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/A75C-351E";
+    device = "/dev/disk/by-uuid/5C69-0464";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -41,9 +41,7 @@
     ];
   };
 
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/4a9bf3d7-66e5-4717-8b42-ee54a062d797"; }
-  ];
+  swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

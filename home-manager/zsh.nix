@@ -1,4 +1,5 @@
-{config, pkgs, ...}: {
+{ config, pkgs, ... }:
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -8,13 +9,18 @@
     shellAliases = {
       n = "nvim";
       l = "ls -l";
-      la = "ls -la"; 
+      la = "ls -la";
       rm = "trash-put";
       rebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos --show-trace && home-manager switch -b old --flake /home/norker/nixos-config#norker";
-      nixconfig = "nvim /home/norker/nixos-config/nixos/configuration.nix";
-      homeconfig = "nvim /home/norker/nixos-config/home-manager/home.nix";
+      nrebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos --show-trace";
+      hrebuild = "home-manager switch -b old --flake /home/norker/nixos-config#norker";
+      config = "nvim /home/norker/nixos-config/nixos/configuration.nix";
+      hconfig = "nvim /home/norker/nixos-config/home-manager/home.nix";
       install = "nvim /home/norker/nixos-config/nixos/packages.nix";
-          };
+      screenshot-c = "grim -g '$(slurp)' - | wl-copy";
+      screenshot = "grim -g '$(slurp)'";
+
+    };
 
     history.size = 10000;
     # enable powerlevel10k
@@ -26,10 +32,13 @@
 
   programs.zsh.oh-my-zsh = {
     enable = true;
-    plugins = [ "git" "sudo"];
+    plugins = [
+      "git"
+      "sudo"
+    ];
     custom = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
   };
-  
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;

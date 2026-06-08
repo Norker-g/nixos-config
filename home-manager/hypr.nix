@@ -10,13 +10,12 @@
       "$mainMod" = "SUPER";
 
       env = [
-        "XCURSOR_THEME,Nordzy-cursors"
+        "XCURSOR_THEME,Nordzy-black-cursors"
         "XCURSOR_SIZE,24"
       ];
 
       monitor = [
         "eDP-1,1920x1080@144,0x0,1.25"
-        "eDP-2,1920x1080@144,0x0,1.25"
       ];
 
       exec-once = [
@@ -57,7 +56,6 @@
       };
 
       animations = {
-
         bezier = [
           "easeOutExpo, 0.16, 1, 0.3, 1"
           "softOvershot, 0.13, 0.99, 0.29, 1.08"
@@ -83,7 +81,6 @@
       };
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
 
@@ -96,25 +93,25 @@
       xwayland = {
         force_zero_scaling = true;
       };
+
       input = {
-        "kb_layout" = "us,de,ru";
-        "kb_options" = "grp:alt_win_toggle";
+        kb_layout = "us,de,ru";
+        kb_options = "grp:alt_win_toggle";
       };
+
       bind = [
         "SUPER SHIFT, Q, killactive"
         "$mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
-        # ", PRINT, exec, XDG_CURRENT_DESKTOP=sway flameshot gui --path ~/Pictures/screenshots"
-        # "SHIFT, PRINT, exec, XDG_CURRENT_DESKTOP=sway flameshot gui -c"
 
         "$mainMod, V, togglefloating"
         "$mainMod, D, exec, $menu"
         "$mainMod, P, pseudo"
         "$mainMod, W, layoutmsg, togglesplit"
         "$mainMod, E, togglegroup"
-        "$mainMod, I, changegroupactive, f"
-        "$mainMod, U, changegroupactive, b"
+
         "$mainMod, I, layoutmsg, cyclenext loop"
         "$mainMod, U, layoutmsg, cycleprev loop"
+
         "$mainMod, B, exec, brave"
         "$mainMod, Return, exec, $terminal"
         "$mainMod, N, exec, kitty -e nvim"
@@ -124,13 +121,13 @@
 
         "$mainMod, H, movefocus, l"
         "$mainMod, L, movefocus, r"
-        "$mainMod, J, movefocus, u"
-        "$mainMod, K, movefocus, d"
+        "$mainMod, J, movefocus, d"
+        "$mainMod, K, movefocus, u"
 
         "SUPER SHIFT, H, movewindow, l"
         "SUPER SHIFT, L, movewindow, r"
-        "SUPER SHIFT, J, movewindow, u"
-        "SUPER SHIFT, K, movewindow, d"
+        "SUPER SHIFT, J, movewindow, d"
+        "SUPER SHIFT, K, movewindow, u"
 
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
@@ -141,6 +138,7 @@
         "$mainMod, 7, workspace, 7"
         "$mainMod, 8, workspace, 8"
         "$mainMod, 9, workspace, 9"
+        "$mainMod, 0, workspace, 10"
 
         "$mainMod SHIFT, 1, movetoworkspace, 1"
         "$mainMod SHIFT, 2, movetoworkspace, 2"
@@ -189,6 +187,34 @@
       bind = , catchall, submap, reset
 
       submap = reset
+
+      windowrule {
+        name = modal-dialogs
+        match:modal = 1
+        float = on
+        center = on
+      }
+
+      windowrule {
+        name = file-dialogs
+        match:title = ^(Open File|Save File|Save As|Choose File|File Upload)$
+        float = on
+        center = on
+        size = 70% 70%
+      }
+
+      windowrule {
+        name = utility-apps
+        match:class = ^(pavucontrol|blueman-manager|nm-connection-editor|org.gnome.Calculator)$
+        float = on
+        center = on
+      }
+
+      windowrule {
+        name = utility-apps-sized
+        match:class = ^(pavucontrol|blueman-manager|nm-connection-editor)$
+        size = 900 600
+      }
     '';
   };
 
@@ -196,12 +222,15 @@
     enable = true;
 
     settings = {
-      preload = [
-        "/home/norker/Pictures/wallpapers/NixOs.png"
-      ];
+      splash = false;
+      ipc = true;
 
       wallpaper = [
-        ",contain:/home/norker/Pictures/wallpapers/NixOs.png"
+        {
+          monitor = "";
+          path = "/home/norker/Pictures/wallpapers/NixOs.png";
+          fit_mode = "cover";
+        }
       ];
     };
   };

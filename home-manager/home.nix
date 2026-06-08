@@ -1,5 +1,14 @@
 { config, pkgs, ... }:
 {
+  imports = [
+    ./gammastep.nix
+    ./hypr.nix
+    ./kitty.nix
+    ./nixvim
+    ./themes.nix
+    ./zsh.nix
+    ./tmux.nix
+  ];
 
   home = {
     username = "norker";
@@ -7,12 +16,4 @@
     stateVersion = "25.11";
   };
 
-  imports = [
-    ./zsh.nix
-    ./kitty.nix
-    ./hypr.nix
-    ./gammastep.nix
-    ./nixvim
-    ./themes.nix
-  ];
 }

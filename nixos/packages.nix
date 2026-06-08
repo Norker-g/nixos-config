@@ -13,6 +13,8 @@
     unzip
     rustup
     javascript-typescript-langserver
+    links2
+    tmux
 
     git
     gh
@@ -37,6 +39,8 @@
     hyprland
     waybar
     hyprshot
+    grim
+    slurp
     quickshell
     hyprpaper
     wl-clipboard
@@ -44,6 +48,7 @@
     rofi
     brave
     gammastep
+    wine
 
     telegram-desktop
     signal-desktop
@@ -54,9 +59,18 @@
 
     brightnessctl
     supergfxctl
+    pipewire
 
     bluez
     home-manager
 
+    # for remote connection
+    tailscale
+    ttyd
+    caddy
+
+    # for streaming
+    obs-studio
+    vlc
   ];
 }

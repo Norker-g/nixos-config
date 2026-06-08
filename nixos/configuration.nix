@@ -15,15 +15,16 @@
     ./hardware-configuration.nix
 
     # Split the config into multiple files
-    ./boot.nix
-    ./networking.nix
-    ./bluetooth.nix
-    ./locale.nix
-    ./users.nix
-    ./packages.nix
-    ./desktop.nix
-    ./maintenance.nix
     ./apps.nix
+    ./bluetooth.nix
+    ./boot.nix
+    ./desktop.nix
+    ./locale.nix
+    ./maintenance.nix
+    ./networking.nix
+    ./packages.nix
+    ./users.nix
+    ./remote-connection.nix
   ];
   environment.variables = {
     VISUAL = "nvim";
