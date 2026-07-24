@@ -4,9 +4,8 @@
   programs.tmux = {
     enable = true;
     prefix = "C-Space";
-
+    terminal = "tmux-256color";
     baseIndex = 1;
-    keyMode = "vi";
 
     extraConfig = ''
       set -g renumber-windows on

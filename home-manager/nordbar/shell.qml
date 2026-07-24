@@ -1,0 +1,541 @@
+import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Io
+import Quickshell.Wayland
+import QtQuick
+import QtQuick.Layouts
+
+ShellRoot {
+  id: root
+  property bool statsPopupOpen: false
+
+  QtObject {
+    id: theme
+    readonly property int height: 36
+    readonly property int marginX: 10
+    readonly property int marginTop: 7
+    readonly property int radius: 14
+    readonly property int pillRadius: 10
+    readonly property int fontSize: 12
+    readonly property int iconSize: 13
+    readonly property string fontFamily: "Inter"
+
+    readonly property color polarNight0: "#2E3440"
+    readonly property color polarNight1: "#3B4252"
+    readonly property color polarNight2: "#434C5E"
+    readonly property color polarNight3: "#4C566A"
+    readonly property color snow0: "#D8DEE9"
+    readonly property color snow1: "#E5E9F0"
+    readonly property color frost0: "#8FBCBB"
+    readonly property color frost1: "#88C0D0"
+    readonly property color frost2: "#81A1C1"
+    readonly property color green: "#A3BE8C"
+    readonly property color yellow: "#EBCB8B"
+    readonly property color red: "#BF616A"
+
+    readonly property color barBg: Qt.rgba(46 / 255, 52 / 255, 64 / 255, 0.88)
+    readonly property color pillBg: Qt.rgba(59 / 255, 66 / 255, 82 / 255, 0.82)
+    readonly property color border: Qt.rgba(136 / 255, 192 / 255, 208 / 255, 0.20)
+    readonly property color text: snow0
+    readonly property color subtext: "#B8C0CC"
+    readonly property color accent: frost1
+    readonly property color urgent: red
+  }
+
+  QtObject {
+    id: status
+
+    property int volume: 0
+    property bool sinkMuted: false
+    property bool micOn: false
+    property string ssid: "…"
+    property int cpu: 0
+    property int ram: 0
+    property var cpuTemp: null
+    property var igpuTemp: null
+    property var dgpuTemp: null
+    property var battery: null
+    property string batteryStatus: ""
+
+    function n(value, fallback) {
+      if (value === null || value === undefined || value === "") return fallback
+      return value
+    }
+
+    function apply(jsonText) {
+      try {
+        const data = JSON.parse(jsonText.trim())
+        volume = n(data.volume, 0)
+        sinkMuted = !!data.sinkMuted
+        micOn = !!data.micOn
+        ssid = n(data.ssid, "offline")
+        cpu = n(data.cpu, 0)
+        ram = n(data.ram, 0)
+        cpuTemp = n(data.cpuTemp, null)
+        igpuTemp = n(data.igpuTemp, null)
+        dgpuTemp = n(data.dgpuTemp, null)
+        battery = n(data.battery, null)
+        batteryStatus = n(data.batteryStatus, "")
+      } catch (e) {
+        console.log("status parse failed:", e, jsonText)
+      }
+    }
+
+    property Process statusProc: Process {
+      command: ["bash", Quickshell.shellDir + "/scripts/status.sh"]
+      running: true
+      stdout: StdioCollector {
+        onStreamFinished: status.apply(this.text)
+      }
+    }
+
+    property Timer refreshTimer: Timer {
+      interval: 500
+      running: true
+      repeat: true
+      onTriggered: if (!status.statusProc.running) status.statusProc.running = true
+    }
+  }
+
+  SystemClock {
+    id: clock
+    precision: SystemClock.Minutes
+  }
+
+  Variants {
+    model: Quickshell.screens
+
+    delegate: Component {
+      PanelWindow {
+        id: panel
+        required property var modelData
+        screen: modelData
+
+        anchors {
+          top: true
+          left: true
+          right: true
+        }
+
+        implicitHeight: theme.height + theme.marginTop 
+        color: "transparent"
+
+
+        Rectangle {
+          id: bar
+
+          anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            leftMargin: theme.marginX
+            rightMargin: theme.marginX
+            topMargin: theme.marginTop
+          }
+
+          height: theme.height
+          radius: theme.radius
+          color: theme.barBg
+          border.color: theme.border
+          border.width: 1
+
+          RowLayout {
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: 12
+            spacing: 12
+
+            Text {
+              text: ""
+              color: theme.accent
+              font.pixelSize: 15
+              font.family: theme.fontFamily
+            }
+
+            WorkspaceDots {}
+          }
+
+          RowLayout {
+            id: rightCluster
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.rightMargin: 8
+            spacing: 6
+
+            StatusPill {
+              icon: status.sinkMuted ? "󰝟" : ""
+              text: status.sinkMuted ? "muted" : status.volume + "%"
+              accent: status.sinkMuted ? theme.urgent : theme.accent
+            }
+
+            StatusPill {
+              icon: status.micOn ? "" : ""
+              text: status.micOn ? "mic" : "off"
+              accent: status.micOn ? theme.green : theme.urgent
+            }
+
+            StatusPill {
+              icon: ""
+              text: status.ssid
+              accent: theme.frost2
+            }
+
+            SystemStatsButton {
+              active: root.statsPopupOpen
+              onToggleRequested: root.statsPopupOpen = !root.statsPopupOpen
+            }
+
+            StatusPill {
+              visible: status.battery !== null
+              icon: batteryIcon(status.battery, status.batteryStatus)
+              text: status.battery === null ? "" : status.battery + "%"
+              accent: batteryAccent(status.battery, status.batteryStatus)
+            }
+
+            StatusPill {
+              icon: ""
+              text: Qt.formatDateTime(clock.date, "HH:mm")
+              accent: theme.accent
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  Variants {
+    model: Quickshell.screens
+
+    delegate: Component {
+      PanelWindow {
+        required property var modelData
+        screen: modelData
+
+        visible: root.statsPopupOpen
+
+        anchors {
+          top: true
+          right: true
+        }
+
+        margins {
+          top: theme.height + theme.marginTop + 8
+          right: theme.marginX + 32
+        }
+
+        implicitWidth: 292
+        implicitHeight: 122
+        color: "transparent"
+
+        aboveWindows: true
+        exclusionMode: ExclusionMode.Ignore
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.namespace: "nordbar-stats-popup"
+
+        StatsPopup {
+          anchors.fill: parent
+          opacity: root.statsPopupOpen ? 1 : 0
+
+          Behavior on opacity {
+            NumberAnimation {
+              duration: 120
+              easing.type: Easing.OutCubic
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function tempText(value) {
+    return value === null || value === undefined ? "--°" : value + "°"
+  }
+
+  function batteryIcon(percent, status) {
+    if (status === "Charging") return "󰂄"
+    if (percent === null || percent === undefined) return "󰂑"
+    if (percent < 15) return "󰁺"
+    if (percent < 35) return "󰁼"
+    if (percent < 60) return "󰁾"
+    if (percent < 85) return "󰂀"
+    return "󰁹"
+  }
+
+  function batteryAccent(percent, status) {
+    if (status === "Charging") return theme.green
+    if (percent !== null && percent < 20) return theme.urgent
+    return theme.accent
+  }
+
+  component WorkspaceDots: RowLayout {
+    spacing: 9
+
+    Repeater {
+      model: 10
+
+      Rectangle {
+        readonly property int ws: index + 1
+        readonly property bool active: Hyprland.focusedWorkspace !== null && Hyprland.focusedWorkspace.id === ws
+
+        Layout.preferredWidth: active ? 18 : 7
+        Layout.preferredHeight: 7
+        radius: 4
+        color: active ? theme.accent : theme.polarNight3
+        border.width: active ? 0 : 1
+        border.color: theme.border
+
+        Behavior on Layout.preferredWidth {
+          NumberAnimation {
+            duration: 80
+            easing.type: Easing.OutCubic
+          }
+        }
+
+        Behavior on color {
+          ColorAnimation { duration: 80 }
+        }
+
+        MouseArea {
+          anchors.fill: parent
+          cursorShape: Qt.PointingHandCursor
+          onClicked: Hyprland.dispatch("workspace " + ws)
+        }
+      }
+    }
+  }
+
+  component SystemStatsButton: Rectangle {
+    signal toggleRequested()
+    property bool active: false
+
+    Layout.preferredHeight: 24
+    Layout.preferredWidth: buttonRow.implicitWidth + 18
+    Layout.minimumWidth: buttonRow.implicitWidth + 18
+
+    radius: theme.pillRadius
+    color: active ? Qt.rgba(67 / 255, 76 / 255, 94 / 255, 0.92) : theme.pillBg
+    border.color: active ? theme.accent : Qt.rgba(216 / 255, 222 / 255, 233 / 255, 0.08)
+    border.width: 1
+
+    Behavior on color {
+      ColorAnimation { duration: 120 }
+    }
+
+    Behavior on border.color {
+      ColorAnimation { duration: 120 }
+    }
+
+    RowLayout {
+      id: buttonRow
+      anchors.centerIn: parent
+      spacing: 6
+
+      Text {
+        text: ""
+        color: theme.yellow
+        font.pixelSize: theme.iconSize
+        font.family: theme.fontFamily
+      }
+
+      Text {
+        text: status.cpu + "%"
+        color: theme.text
+        font.pixelSize: theme.fontSize
+        font.family: theme.fontFamily
+      }
+
+      Text {
+        text: active ? "⌃" : "⌄"
+        color: active ? theme.accent : theme.subtext
+        font.pixelSize: theme.fontSize
+        font.family: theme.fontFamily
+      }
+    }
+
+    MouseArea {
+      anchors.fill: parent
+      cursorShape: Qt.PointingHandCursor
+      onClicked: parent.toggleRequested()
+    }
+  }
+
+  component StatsPopup: Rectangle {
+    width: 292
+    height: 122
+    radius: 18
+    color: Qt.rgba(46 / 255, 52 / 255, 64 / 255, 0.70)
+    border.color: Qt.rgba(136 / 255, 192 / 255, 208 / 255, 0.30)
+    border.width: 1
+
+    Rectangle {
+      anchors.fill: parent
+      anchors.margins: 1
+      radius: parent.radius - 1
+      color: "transparent"
+      border.color: Qt.rgba(255 / 255, 255 / 255, 255 / 255, 0.035)
+      border.width: 1
+    }
+
+    ColumnLayout {
+      anchors.fill: parent
+      anchors.margins: 12
+      spacing: 9
+
+      RowLayout {
+        Layout.fillWidth: true
+        spacing: 10
+
+        Text {
+          text: "System"
+          color: theme.text
+          font.pixelSize: 13
+          font.bold: true
+          font.family: theme.fontFamily
+        }
+
+        Item {
+          Layout.fillWidth: true
+        }
+
+        Text {
+          text: "load + thermals"
+          color: theme.subtext
+          font.pixelSize: 11
+          font.family: theme.fontFamily
+        }
+      }
+
+      RowLayout {
+        Layout.fillWidth: true
+        spacing: 8
+
+        StatBox {
+          title: "CPU"
+          value: status.cpu + "%"
+          icon: ""
+          accent: theme.yellow
+        }
+
+        StatBox {
+          title: "RAM"
+          value: status.ram + "%"
+          icon: ""
+          accent: theme.frost0
+        }
+      }
+
+      RowLayout {
+        Layout.fillWidth: true
+        spacing: 8
+
+        StatBox {
+          title: "CPU"
+          value: tempText(status.cpuTemp)
+          icon: ""
+          accent: theme.frost1
+        }
+
+        StatBox {
+          title: "iGPU"
+          value: tempText(status.igpuTemp)
+          icon: "󰢮"
+          accent: theme.frost2
+        }
+
+        StatBox {
+          title: "dGPU"
+          value: tempText(status.dgpuTemp)
+          icon: "󰾲"
+          accent: theme.green
+        }
+      }
+    }
+  }
+
+  component StatBox: Rectangle {
+    required property string title
+    required property string value
+    required property string icon
+    property color accent: theme.accent
+
+    Layout.fillWidth: true
+    Layout.preferredHeight: 28
+
+    radius: 10
+    color: Qt.rgba(59 / 255, 66 / 255, 82 / 255, 0.78)
+    border.color: Qt.rgba(216 / 255, 222 / 255, 233 / 255, 0.07)
+    border.width: 1
+
+    RowLayout {
+      anchors.fill: parent
+      anchors.leftMargin: 8
+      anchors.rightMargin: 8
+      spacing: 5
+
+      Text {
+        text: parent.parent.icon
+        color: parent.parent.accent
+        font.pixelSize: 11
+        font.family: theme.fontFamily
+      }
+
+      Text {
+        text: parent.parent.title
+        color: theme.subtext
+        font.pixelSize: 10
+        font.family: theme.fontFamily
+      }
+
+      Item {
+        Layout.fillWidth: true
+      }
+
+      Text {
+        text: parent.parent.value
+        color: theme.text
+        font.pixelSize: 11
+        font.bold: true
+        font.family: theme.fontFamily
+      }
+    }
+  }
+
+  component StatusPill: Rectangle {
+    required property string icon
+    required property string text
+    property color accent: theme.accent
+
+    Layout.preferredHeight: 24
+    Layout.preferredWidth: pillContent.implicitWidth + 18
+    Layout.minimumWidth: pillContent.implicitWidth + 18
+
+    radius: theme.pillRadius
+    color: theme.pillBg
+    border.color: Qt.rgba(216 / 255, 222 / 255, 233 / 255, 0.08)
+    border.width: 1
+
+    RowLayout {
+      id: pillContent
+      anchors.centerIn: parent
+      spacing: 6
+
+      Text {
+        text: parent.parent.icon
+        color: parent.parent.accent
+        font.pixelSize: theme.iconSize
+        font.family: theme.fontFamily
+      }
+
+      Text {
+        id: label
+        text: parent.parent.text
+        color: theme.text
+        font.pixelSize: theme.fontSize
+        font.family: theme.fontFamily
+        elide: Text.ElideRight
+        maximumLineCount: 1
+      }
+    }
+  }
+}

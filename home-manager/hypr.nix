@@ -16,10 +16,12 @@
 
       monitor = [
         "eDP-1,1920x1080@144,0x0,1.25"
+        # "eDP-1,1920x1080@144,0x0,1.25"
       ];
 
       exec-once = [
-        "waybar"
+        "qs -c nordbar"
+        # "waybar"
         "hyprpaper"
         "hyprctl setcursor Nordzy-black-cursors 24"
       ];
@@ -96,22 +98,21 @@
 
       input = {
         kb_layout = "us,de,ru";
-        kb_options = "grp:alt_win_toggle";
+        kb_variant = ",,";
+        # kb_options = "grp:alt_win_toggle";
       };
 
       bind = [
         "SUPER SHIFT, Q, killactive"
         "$mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
-
         "$mainMod, V, togglefloating"
         "$mainMod, D, exec, $menu"
         "$mainMod, P, pseudo"
         "$mainMod, W, layoutmsg, togglesplit"
         "$mainMod, E, togglegroup"
-
-        "$mainMod, I, layoutmsg, cyclenext loop"
-        "$mainMod, U, layoutmsg, cycleprev loop"
-
+        "ALT SUPER, SPACE, exec, hyprctl switchxkblayout all next"
+        # "$mainMod, I, layoutmsg, cyclenext loop"
+        # "$mainMod, U, layoutmsg, cycleprev loop"
         "$mainMod, B, exec, brave"
         "$mainMod, Return, exec, $terminal"
         "$mainMod, N, exec, kitty -e nvim"

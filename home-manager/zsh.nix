@@ -11,7 +11,7 @@
       l = "ls -l";
       la = "ls -la";
       rm = "trash-put";
-      rebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos --show-trace && home-manager switch -b old --flake /home/norker/nixos-config#norker";
+      rebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos --show-trace && home-manager switch -b old --flake /home/norker/nixos-config#norker --impure";
       nrebuild = "sudo nixos-rebuild switch --flake /home/norker/nixos-config#norker-nixos --show-trace";
       hrebuild = "home-manager switch -b old --flake /home/norker/nixos-config#norker";
       config = "nvim /home/norker/nixos-config/nixos/configuration.nix";

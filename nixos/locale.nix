@@ -18,12 +18,6 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "en_DK.UTF-8";
   };
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us, ru";
-    options = "grp:alt_win_toggle";
-    variant = "";
-  };
 
   # Configure console keymap
   console.keyMap = "us";

@@ -13,6 +13,7 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
   outputs =
@@ -21,8 +22,9 @@
       nixpkgs,
       home-manager,
       nixvim,
+      zen-browser,
       ...
-    }:
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -38,7 +40,9 @@
 
       homeConfigurations."norker" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
+        extraSpecialArgs = {
+          inherit inputs;
+        };
         modules = [
           nixvim.homeModules.nixvim
           ./home-manager/home.nix

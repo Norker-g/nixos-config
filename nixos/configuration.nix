@@ -19,6 +19,8 @@
     ./bluetooth.nix
     ./boot.nix
     ./desktop.nix
+    ./font.nix
+    ./linking.nix
     ./locale.nix
     ./maintenance.nix
     ./networking.nix

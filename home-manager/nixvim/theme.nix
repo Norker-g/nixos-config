@@ -6,6 +6,19 @@
       enable = true;
     };
 
+    # colorschemes.kanagawa = {
+    #   enable = true;
+    #   settings.theme = "wave";
+    # };
+
+    # programs.nixvim = {
+    #   extraPlugins = with pkgs.vimPlugins; [
+    #     nordic-nvim
+    #   ];
+    #
+    #   colorscheme = "nordic";
+    # };
+
     extraConfigLua = ''
       local transparent_groups = {
         "Normal",

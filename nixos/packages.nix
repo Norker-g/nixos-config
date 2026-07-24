@@ -2,23 +2,36 @@
 
 {
   environment.systemPackages = with pkgs; [
+    #editors
     vim
     neovim
+    tmux
 
+    # programming related utilities
     gcc
     gdb
     python314
+    javacc
+    jdk25
+    jdt-language-server
+    rustup
+    ghc
+
     cmake
+    stack
     gnumake
     unzip
-    rustup
     javascript-typescript-langserver
     links2
-    tmux
-
     git
     gh
     lazygit
+    # toybox
+    coreutils
+    psmisc
+    gradle
+
+    # terminal and nix utilities
     fastfetch
     fd
     ripgrep
@@ -27,14 +40,18 @@
     htop
     btop
     trash-cli
+    lsof
+    wine64
+    timer
+    gocryptfs
 
-    keymapp
-
+    # The shell
     zsh
     zsh-powerlevel10k
     oh-my-zsh
     nerd-fonts.hack
 
+    # WM related stuff
     ly
     hyprland
     waybar
@@ -46,23 +63,29 @@
     wl-clipboard
     kitty
     rofi
-    brave
     gammastep
-    wine
 
+    # device managment
+    brightnessctl
+    supergfxctl
+    pipewire
+    bluez
+    home-manager
+
+    #big applications:
     telegram-desktop
     signal-desktop
     steam
     steam-run
     _1password-cli
     _1password-gui
+    keymapp
+    brave
+    shotcut
+    codex
 
-    brightnessctl
-    supergfxctl
-    pipewire
-
-    bluez
-    home-manager
+    # games
+    openttd
 
     # for remote connection
     tailscale
@@ -72,5 +95,11 @@
     # for streaming
     obs-studio
     vlc
+
+    # for graphomata
+    # xdg-utils # xdg-open
+    zenity # graphical dialogs
+    openssl
+    cacert # CA certificate bundle
   ];
 }

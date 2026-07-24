@@ -1,19 +1,23 @@
-{ config, ... }:
 {
-  hardware.bluetooth.enable = true;
-  # makes q30 not disconnect after ~5 seconds
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-      # Some headsets (Soundcore Q30) disconnect after ~4s with "dual" mode.
-      # "bredr" disables LE, which avoids the auth failure in BlueZ 5.83+.
-      ControllerMode = "bredr";
-      JustWorksRepairing = "never";
-      FastConnectable = true;
-      Experimental = true;
-    };
-    Policy = {
-      AutoEnable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+
+    settings = {
+      General = {
+        # Important for Soundcore Q30 disconnect bug
+        ControllerMode = "bredr";
+
+        # Avoid manually restricting Enable for now
+        # Enable = "Source,Sink,Media,Socket";
+
+        Experimental = true;
+        FastConnectable = true;
+      };
+
+      Policy = {
+        AutoEnable = true;
+      };
     };
   };
 }
