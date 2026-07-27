@@ -54,6 +54,12 @@
     };
   };
 
+  # enable android emulator
+  virtualisation.waydroid = {
+    enable = true;
+    package = pkgs.waydroid-nftables;
+  };
+
   services.supergfxd.enable = true;
 
   hardware.keyboard.zsa.enable = true;

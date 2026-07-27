@@ -1,6 +1,17 @@
 { config, pkgs, ... }:
 
+let
+  bluezPkgs = import (builtins.fetchTarball {
+    url = "https://releases.nixos.org/nixos/24.05/nixos-24.05.6632.c21b77913ea8/nixexprs.tar.xz";
+    sha256 = "132w53yp85aki32nhc4dhxm9cxlzvz96fgh5islks28kjal9ysy9";
+  }) {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
+  hardware.bluetooth.package = bluezPkgs.bluez;
+
   environment.systemPackages = with pkgs; [
     #editors
     vim
@@ -69,7 +80,6 @@
     brightnessctl
     supergfxctl
     pipewire
-    bluez
     home-manager
 
     #big applications:
@@ -101,5 +111,7 @@
     zenity # graphical dialogs
     openssl
     cacert # CA certificate bundle
+  ] ++ [
+    bluezPkgs.bluez
   ];
 }
