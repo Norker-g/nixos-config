@@ -6,6 +6,7 @@
     ./keymaps.nix
     ./theme.nix
     ./plugins.nix
+    # ./debugger.nix
     ./lsp.nix
     ./which-key.nix
   ];

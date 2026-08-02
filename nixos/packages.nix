@@ -1,13 +1,16 @@
 { config, pkgs, ... }:
 
 let
-  bluezPkgs = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/24.05/nixos-24.05.6632.c21b77913ea8/nixexprs.tar.xz";
-    sha256 = "132w53yp85aki32nhc4dhxm9cxlzvz96fgh5islks28kjal9ysy9";
-  }) {
-    system = pkgs.system;
-    config.allowUnfree = true;
-  };
+  bluezPkgs =
+    import
+      (builtins.fetchTarball {
+        url = "https://releases.nixos.org/nixos/24.05/nixos-24.05.6632.c21b77913ea8/nixexprs.tar.xz";
+        sha256 = "132w53yp85aki32nhc4dhxm9cxlzvz96fgh5islks28kjal9ysy9";
+      })
+      {
+        system = pkgs.system;
+        config.allowUnfree = true;
+      };
 in
 {
   hardware.bluetooth.package = bluezPkgs.bluez;
@@ -25,6 +28,8 @@ in
     javacc
     jdk25
     jdt-language-server
+    kotlin
+    kotlin-language-server
     rustup
     ghc
 
@@ -81,6 +86,9 @@ in
     supergfxctl
     pipewire
     home-manager
+    bluez
+    pavucontrol
+    blueman
 
     #big applications:
     telegram-desktop
@@ -96,7 +104,9 @@ in
 
     # games
     openttd
-
+    chessx
+    chess-tui
+    #
     # for remote connection
     tailscale
     ttyd
@@ -111,7 +121,9 @@ in
     zenity # graphical dialogs
     openssl
     cacert # CA certificate bundle
-  ] ++ [
-    bluezPkgs.bluez
   ];
+  # ++ [
+  #   bluezPkgs.bluez
+  # ];
+
 }

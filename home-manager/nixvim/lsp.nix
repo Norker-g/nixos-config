@@ -46,6 +46,7 @@ in
 
         hls = {
           enable = true;
+          installGhc = false;
 
           # Allow an HLS supplied by `nix develop`/`nix-shell`
           # to override Nixvim's packaged HLS.
@@ -88,6 +89,19 @@ in
             "build.gradle.kts"
             "mvnw"
             "gradlew"
+          ];
+        };
+
+        kotlin_language_server = {
+          enable = true;
+          rootMarkers = [
+            "settings.gradle"
+            "settings.gradle.kts"
+            "build.gradle"
+            "build.gradle.kts"
+            "pom.xml"
+            "build.xml"
+            ".git"
           ];
         };
 

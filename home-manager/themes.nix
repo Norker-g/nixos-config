@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   # change cursor
@@ -17,6 +17,8 @@
       package = pkgs.nordic;
       name = "Nordic";
     };
+
+    gtk4.theme = config.gtk.theme;
 
     iconTheme = {
       package = pkgs.nordzy-icon-theme;
