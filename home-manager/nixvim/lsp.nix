@@ -92,19 +92,6 @@ in
           ];
         };
 
-        kotlin_language_server = {
-          enable = true;
-          rootMarkers = [
-            "settings.gradle"
-            "settings.gradle.kts"
-            "build.gradle"
-            "build.gradle.kts"
-            "pom.xml"
-            "build.xml"
-            ".git"
-          ];
-        };
-
         ts_ls.enable = true;
         ts_ls.filetypes = [
           "javascript"
@@ -158,5 +145,43 @@ in
       update_in_insert = false;
       severity_sort = true;
     };
+
+    extraConfigLua = ''
+      do
+        -- kotlin-language-server crashes if initializationOptions is encoded as
+        -- a JSON array. Start from an explicit empty dict and then add the cache
+        -- path so the payload is always sent as an object.
+        local kotlin_init_options = vim.empty_dict()
+        kotlin_init_options.storagePath = "${config.home.homeDirectory}/.cache/kotlin-language-server"
+
+        vim.lsp.config("kotlin_language_server", {
+          cmd = { "kotlin-language-server" },
+          filetypes = { "kotlin" },
+          root_markers = {
+            "settings.gradle",
+            "settings.gradle.kts",
+            "build.xml",
+            "pom.xml",
+            "build.gradle",
+            "build.gradle.kts",
+          },
+          init_options = kotlin_init_options,
+          settings = {
+            kotlin = {
+              diagnostics = {
+                enabled = true,
+                level = "hint",
+              },
+              scripts = {
+                enabled = true,
+                buildScriptsEnabled = true,
+              },
+            },
+          },
+        })
+
+        vim.lsp.enable("kotlin_language_server")
+      end
+    '';
   };
 }

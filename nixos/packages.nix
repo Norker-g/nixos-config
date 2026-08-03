@@ -1,25 +1,26 @@
 { config, pkgs, ... }:
 
-let
-  bluezPkgs =
-    import
-      (builtins.fetchTarball {
-        url = "https://releases.nixos.org/nixos/24.05/nixos-24.05.6632.c21b77913ea8/nixexprs.tar.xz";
-        sha256 = "132w53yp85aki32nhc4dhxm9cxlzvz96fgh5islks28kjal9ysy9";
-      })
-      {
-        system = pkgs.system;
-        config.allowUnfree = true;
-      };
-in
+# let
+#   bluezPkgs =
+#     import
+#       (builtins.fetchTarball {
+#         url = "https://releases.nixos.org/nixos/24.05/nixos-24.05.6632.c21b77913ea8/nixexprs.tar.xz";
+#         sha256 = "132w53yp85aki32nhc4dhxm9cxlzvz96fgh5islks28kjal9ysy9";
+#       })
+#       {
+#         system = pkgs.system;
+#         config.allowUnfree = true;
+#       };
+# in
 {
-  hardware.bluetooth.package = bluezPkgs.bluez;
+  # hardware.bluetooth.package = bluezPkgs.bluez;
 
   environment.systemPackages = with pkgs; [
     #editors
     vim
     neovim
     tmux
+    # jetbrains.idea
 
     # programming related utilities
     gcc
@@ -51,6 +52,7 @@ in
     fastfetch
     fd
     ripgrep
+    fzf
     zoxide
     nix-search-cli
     htop
@@ -60,6 +62,7 @@ in
     wine64
     timer
     gocryptfs
+    speedtest
 
     # The shell
     zsh
