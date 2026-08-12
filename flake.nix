@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-kotlin.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -32,6 +33,10 @@
     {
       nixosConfigurations.norker-nixos = nixpkgs.lib.nixosSystem {
         inherit system;
+
+        specialArgs = {
+          inherit inputs;
+        };
 
         modules = [
           ./nixos/configuration.nix

@@ -148,12 +148,6 @@ in
 
     extraConfigLua = ''
       do
-        -- kotlin-language-server crashes if initializationOptions is encoded as
-        -- a JSON array. Start from an explicit empty dict and then add the cache
-        -- path so the payload is always sent as an object.
-        local kotlin_init_options = vim.empty_dict()
-        kotlin_init_options.storagePath = "${config.home.homeDirectory}/.cache/kotlin-language-server"
-
         vim.lsp.config("kotlin_language_server", {
           cmd = { "kotlin-language-server" },
           filetypes = { "kotlin" },
@@ -165,7 +159,11 @@ in
             "build.gradle",
             "build.gradle.kts",
           },
-          init_options = kotlin_init_options,
+          -- This must be a non-empty table.  An empty Lua table is encoded as a
+          -- JSON array, but kotlin-language-server requires an object here.
+          init_options = {
+            storagePath = "${config.home.homeDirectory}/.cache/kotlin-language-server",
+          },
           settings = {
             kotlin = {
               diagnostics = {

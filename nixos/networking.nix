@@ -22,6 +22,18 @@
   services.resolved = {
     enable = true;
     settings.Resolve = {
+      # The DNS servers handed out by some Wi-Fi networks have been timing
+      # out.  A fallback resolver is only used when no link DNS server is
+      # configured, so make reliable resolvers the primary route as well.
+      # Tailscale's ~ts.net route remains more specific and continues to
+      # resolve MagicDNS names through Tailscale.
+      DNS = [
+        "1.1.1.1"
+        "1.0.0.1"
+        "9.9.9.9"
+        "149.112.112.112"
+      ];
+      Domains = [ "~." ];
       FallbackDNS = [
         "1.1.1.1"
         "1.0.0.1"

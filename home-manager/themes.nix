@@ -3,6 +3,7 @@
 {
   # change cursor
   home.pointerCursor = {
+    enable = true;
     name = "Nordzy-cursors";
     package = pkgs.nordzy-cursor-theme;
     size = 24;
@@ -14,8 +15,8 @@
     enable = true;
 
     theme = {
-      package = pkgs.nordic;
-      name = "Nordic";
+      package = pkgs.adw-gtk3;
+      name = "adw-gtk3-dark";
     };
 
     gtk4.theme = config.gtk.theme;

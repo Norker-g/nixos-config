@@ -51,6 +51,13 @@
 
       # Better LSP update behavior
       updatetime = 250;
+
+      # Use Tree-sitter syntax trees to create folds for supported languages.
+      # Keep folds open initially; they can still be toggled with normal fold
+      # commands.
+      foldmethod = "expr";
+      foldexpr = "v:lua.vim.treesitter.foldexpr()";
+      foldlevel = 99;
     };
 
     extraConfigLuaPre = ''

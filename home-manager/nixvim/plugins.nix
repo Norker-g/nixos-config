@@ -30,12 +30,27 @@
 
         settings = {
           format_on_save = {
-            timeout_ms = 500;
+            # KtLint can take longer on larger Kotlin projects.
+            timeout_ms = 3000;
             lsp_fallback = true;
           };
 
           formatters_by_ft = {
             rust = [ "rustfmt" ];
+            kotlin = [ "ktlint" ];
+            kotlin_script = [ "ktlint" ];
+          };
+
+          # KtLint uses the file path passed with stdin-path to find the
+          # applicable .editorconfig, starting at the project root.
+          formatters.ktlint = {
+            command = "ktlint";
+            args = [
+              "--format"
+              "--stdin"
+              "--stdin-path=$FILENAME"
+              "--log-level=none"
+            ];
           };
         };
       };

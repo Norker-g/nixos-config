@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 # let
 #   bluezPkgs =
@@ -12,6 +17,9 @@
 #         config.allowUnfree = true;
 #       };
 # in
+let
+  kotlinPkgs = inputs.nixpkgs-kotlin.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   # hardware.bluetooth.package = bluezPkgs.bluez;
 
@@ -20,16 +28,18 @@
     vim
     neovim
     tmux
-    # jetbrains.idea
+    jetbrains.idea
 
     # programming related utilities
     gcc
     gdb
     python314
     javacc
-    jdk25
+    # jdk25
+    jdk21
     jdt-language-server
-    kotlin
+    kotlinPkgs.kotlin
+    pkgs.ktlint
     kotlin-language-server
     rustup
     ghc
@@ -109,6 +119,7 @@
     openttd
     chessx
     chess-tui
+    prismlauncher
     #
     # for remote connection
     tailscale
@@ -124,6 +135,9 @@
     zenity # graphical dialogs
     openssl
     cacert # CA certificate bundle
+
+    #vpn
+    openvpn
   ];
   # ++ [
   #   bluezPkgs.bluez

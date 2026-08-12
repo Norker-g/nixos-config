@@ -5,14 +5,37 @@
     enable = true;
 
     libraries = with pkgs; [
-      xorg.libXrandr
-      xorg.libX11
-      libglvnd
-      freetype
+      # Basic runtime libraries
+      stdenv.cc.cc
       zlib
-      openal
       openssl
-      # localectl
+
+      # X11 / AWT
+      libx11
+      libxext
+      libxrender
+      libxtst
+      libxi
+      libxrandr
+      libxfixes
+      libxcomposite
+      libxdamage
+      libxcb
+      libxkbcommon
+
+      # Graphics and desktop integration
+      libglvnd
+      glib
+      gtk3
+
+      # Fonts
+      fontconfig
+      freetype
+
+      # Audio and printing
+      alsa-lib
+      cups
+      openal
     ];
   };
 }

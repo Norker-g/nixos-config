@@ -19,6 +19,7 @@
       install = "nvim /home/norker/nixos-config/nixos/packages.nix";
       screenshot-c = "grim -g '$(slurp)' - | wl-copy";
       screenshot = "grim -g '$(slurp)'";
+      please = "sudo";
 
     };
 
