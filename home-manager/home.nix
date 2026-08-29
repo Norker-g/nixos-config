@@ -22,5 +22,7 @@
       source = ./nordbar/scripts/status.sh;
       executable = true;
     };
+
+    file.".config/quickshell/nordlock".source = ./nordlock;
   };
 }

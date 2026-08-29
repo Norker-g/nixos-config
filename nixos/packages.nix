@@ -43,6 +43,7 @@ in
     kotlin-language-server
     rustup
     ghc
+    binutils
 
     cmake
     stack
@@ -55,6 +56,7 @@ in
     lazygit
     # toybox
     coreutils
+    usbutils
     psmisc
     gradle
 
@@ -93,6 +95,7 @@ in
     kitty
     rofi
     gammastep
+    discord
 
     # device managment
     brightnessctl

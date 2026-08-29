@@ -25,6 +25,7 @@
     ./maintenance.nix
     ./networking.nix
     ./packages.nix
+    ./printer.nix
     ./users.nix
     ./remote-connection.nix
   ];
