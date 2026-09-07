@@ -2,36 +2,56 @@
 
 {
   programs.nixvim = {
-    colorschemes.nord = {
-      enable = true;
-    };
+    # colorschemes.nord = {
+    #   enable = true;
+    # };
 
     # colorschemes.kanagawa = {
     #   enable = true;
     #   settings.theme = "wave";
     # };
 
-    # programs.nixvim = {
-    #   extraPlugins = with pkgs.vimPlugins; [
-    #     nordic-nvim
-    #   ];
-    #
-    #   colorscheme = "nordic";
-    # };
+    extraPlugins = with pkgs.vimPlugins; [
+      nordic-nvim
+    ];
+
+    colorscheme = "nordic";
+
+    extraConfigLuaPre = ''
+      require("nordic").setup({
+        visual = {
+          theme = "light",
+          blend = 1,
+        },
+        cursorline = {
+          theme = "light"
+        },
+      })
+
+    '';
 
     extraConfigLua = ''
-      local transparent_groups = {
-        "Normal",
-        "NormalFloat",
-        "SignColumn",
-        "LineNr",
-        "CursorLineNr",
-        "EndOfBuffer",
-      }
+        vim.api.nvim_set_hl(0, "StatusLine", { 
+          bg = "#434C5E",
+            fg = "#D8DEE9",
+            })
 
-      for _, group in ipairs(transparent_groups) do
-        vim.api.nvim_set_hl(0, group, { bg = "none" })
-      end
+      vim.api.nvim_set_hl(0, "StatusLineNC", {
+          bg = "#3B4252",
+          fg = "#4C566A",
+          })
+         local transparent_groups = {
+               "Normal",
+               "NormalFloat",
+               "SignColumn",
+               "LineNr",
+               "CursorLineNr",
+               "EndOfBuffer",
+             }
+
+             for _, group in ipairs(transparent_groups) do
+               vim.api.nvim_set_hl(0, group, { bg = "none" })
+             end
     '';
   };
 }

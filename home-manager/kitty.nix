@@ -10,7 +10,7 @@
     };
     settings = {
       dynamic_background_opacity = true;
-      background_opacity = 0.85;
+      background_opacity = 0.97;
     };
     themeFile = "Nord";
   };
